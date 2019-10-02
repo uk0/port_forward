@@ -1,0 +1,29 @@
+#!/bin/sh
+
+
+help(){
+    echo -e "\033[32m
+    version: 1.0
+    Usage:
+        port_forward 0.0.0.0:53 47.93.244.11:53 udp
+        port_forward 0.0.0.0:2022 47.93.244.11:22 tcp
+        \n\033[0m"
+    exit 1
+}
+
+
+
+start(){
+nohup /usr/local/bin/port_forward_linux_64 $1 $2 $3 >/dev/null 2>&1 &  echo -e "\033[32m PID = $! \033[0m"
+}
+
+if [[ "$1" == "" || "$1" == "-h" || "$1" == "--help" ]];then
+    help;
+
+elif [[ "$1" == "" && "$2" == "" && "$3" == "" ]];then
+    help;
+
+else
+    start $1 $2 $3;
+
+fi
